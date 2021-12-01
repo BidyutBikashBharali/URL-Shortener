@@ -1,9 +1,9 @@
 import uvicorn, schedule, time
 from threading import Thread
-from Core.url_expiration import expire_url
+from v1.url_expiration import expire_url
 from fastapi import FastAPI
-from Core.db import Base, engine
-from Core import api
+from v1.db import Base, engine
+from v1 import api
 from fastapi.middleware.cors import CORSMiddleware
 
 
