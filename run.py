@@ -12,6 +12,7 @@ app.include_router(api.router)
 
 origins = [
     "http://127.0.0.1:8000",
+    "https://yourl-short3n3r.herokuapp.com/",
 ]
 
 # origins = ["*"] # not recommended for production
