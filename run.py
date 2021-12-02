@@ -46,6 +46,7 @@ t = Thread(target=run_on_thread, daemon = True) # when daemon = True then this b
 t.start()
 
 
+
 #used for development environment
 # if __name__ == "__main__":
     # uvicorn.run("run:app", host="0.0.0.0", port=8000, reload=True)
