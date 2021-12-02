@@ -11,4 +11,4 @@ if CODE_LENGTH is None:
 class UrlSchema(BaseModel):
     original_url : AnyHttpUrl
     short_code : Optional[constr(max_length = int(config("CODE_LENGTH")))] = None
-    url_expiration : Optional[conint(gt =-1, le = 90)] = None
+    url_expiration : Optional[conint(gt =0, le = 90)] = None
