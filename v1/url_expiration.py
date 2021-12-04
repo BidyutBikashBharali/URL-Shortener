@@ -22,5 +22,5 @@ def expire_url():
         errortype =  type(emsg).__name__
         print("File Name : ", current_file_name)
         print("Error on line : ", line)
-        print("error type : ", errortype)
+        print("Error Type : ", errortype)
         print("Error msg : ", emsg)
