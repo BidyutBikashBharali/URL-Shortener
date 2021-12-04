@@ -21,14 +21,14 @@ if BASE_URL is None:
 
 
 
-@router.get("/")
-async def read_root():
-    return {"response": "Welcome to URL shortner!"}
+# @router.get("/")
+# async def read_root():
+#     return {"response": "Welcome to URL shortner!"}
 
 
 
 
-@router.post('/', response_class=ORJSONResponse) 
+@router.post('/', tags=["Shorten URL"], response_class=ORJSONResponse) 
 async def test(url_schema : UrlSchema, session: Session = Depends(get_db)):
 
     try:
@@ -101,7 +101,7 @@ async def test(url_schema : UrlSchema, session: Session = Depends(get_db)):
 
 
 
-@router.get("/{short_code}", response_class=ORJSONResponse)
+@router.get("/{short_code}", tags=["Redirect With Short-Code"], response_class=ORJSONResponse)
 async def redirect_url(short_code : str, session : Session = Depends(get_db)):
     
     try:
@@ -127,7 +127,7 @@ async def redirect_url(short_code : str, session : Session = Depends(get_db)):
 
         
         
-@router.get("/{short_code}/data", response_class=ORJSONResponse)
+@router.get("/{short_code}/info", tags=["Short-URL Info"], response_class=ORJSONResponse)
 async def get_url_data(short_code : str, session : Session = Depends(get_db)):
     
     try:

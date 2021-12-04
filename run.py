@@ -6,8 +6,72 @@ from v1.db import Base, engine
 from v1 import api
 from fastapi.middleware.cors import CORSMiddleware
 
+description = """
 
-app = FastAPI()
+**This API enables developers to convert a lengthy URL into a short URL
+🚀**
+
+  
+  
+
+## **Features**
+
+  - It accepts custom and unique short code for URL shortening
+  - Automatically generates unique short code if user given custom short
+    code is set to **null** or not given
+  - User can set URL validity days after which the Shorten URL will be
+    invalid automatically i.e all its info will be discarded  
+    from the database. Shorten URL will never be expire if URL validity
+    days is not set or set to **null**
+  - This API returns URL information at **/{Short Code}/info** endpoint.
+
+  
+  
+
+"""
+
+tags_metadata = [
+
+    {
+        "name": "Shorten URL",
+        "description": " 'original_url' is required, 'short_code' & 'url_expiration' is Optional and 0 day < 'url_expiration' <= 90 days "
+    },
+
+    {
+        "name": "Redirect With Short-Code",
+        "description": "Get redirected to the original URL"
+    },
+
+    {
+        "name": "Short-URL Info",
+        "description": "This returns Shorten URL information.",
+        "summary": "Get URL info."
+    },
+
+]
+
+
+app = FastAPI(
+
+    docs_url="/",
+    redoc_url=None,
+    title="REST API For URL Shortening",
+    description=description,
+    version="0.0.1",
+    # terms_of_service="http://example.com/terms/",
+    contact={
+        "name": "Developer",
+        # "url": "http://x-force.example.com/contact/",
+        "email": "imax7964@gmail.com",
+    },
+    license_info={
+        "name": "The MIT License",
+        "url": "https://opensource.org/licenses/MIT",
+    },
+    openapi_tags=tags_metadata
+
+    )
+
 app.include_router(api.router)
 
 origins = [
@@ -47,5 +111,5 @@ t.start()
 
 
 #used for development environment
-# if __name__ == "__main__":
-    # uvicorn.run("run:app", host="0.0.0.0", port=8000, reload=True)
+if __name__ == "__main__":
+    uvicorn.run("run:app", host="0.0.0.0", port=8000, reload=True)
