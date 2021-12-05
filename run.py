@@ -8,13 +8,13 @@ from fastapi.middleware.cors import CORSMiddleware
 
 description = """
 
-##**This API enables developers to convert a lengthy URL into a short one
+**This API enables developers to convert a lengthy URL into a short one
 🚀**
 
   
   
 
-### **Features**
+## **Features**
 
   - It accepts custom and unique short code for URL shortening
   - Automatically generates unique short code if user given custom short
