@@ -45,7 +45,7 @@ tags_metadata = [
     {
         "name": "Short-URL Info",
         "description": "This returns Shorten URL information.",
-        "summary": "Get URL info."
+        # "summary": "Get URL info."
     },
 
 ]
@@ -58,10 +58,10 @@ app = FastAPI(
     title="REST API For URL Shortening",
     description=description,
     version="0.0.1",
-    # terms_of_service="http://example.com/terms/",
+    # terms_of_service="http://bbbwebsite.com/terms/",
     contact={
         "name": "Developer",
-        # "url": "http://x-force.example.com/contact/",
+        # "url": "https://bbbwebsite.com/contact/",
         "email": "imax7964@gmail.com",
     },
     license_info={
@@ -111,5 +111,5 @@ t.start()
 
 
 #used for development environment
-# if __name__ == "__main__":
-#     uvicorn.run("run:app", host="0.0.0.0", port=8000, reload=True)
+if __name__ == "__main__":
+    uvicorn.run("run:app", host="0.0.0.0", port=8000, reload=True)

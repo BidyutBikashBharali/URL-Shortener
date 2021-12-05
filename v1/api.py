@@ -127,7 +127,7 @@ async def redirect_url(short_code : str, session : Session = Depends(get_db)):
 
         
         
-@router.get("/{short_code}/info", tags=["Short-URL Info"], response_class=ORJSONResponse)
+@router.get("/{short_code}/info", tags=["Short-URL Info"], summary= "Get URL information", response_class=ORJSONResponse)
 async def get_url_data(short_code : str, session : Session = Depends(get_db)):
     
     try:
