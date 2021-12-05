@@ -31,6 +31,10 @@ if BASE_URL is None:
 @router.post('/', tags=["Shorten URL"], response_class=ORJSONResponse) 
 async def test(url_schema : UrlSchema, session: Session = Depends(get_db)):
 
+    """
+    'original_url' field is required, 'short_code' & 'url_expiration' fields are Optional and 0 day < 'url_expiration' field <= 90 days.
+    """
+
     try:
         # converted pydantic schema object to python dict
         url_schema = dict(url_schema)

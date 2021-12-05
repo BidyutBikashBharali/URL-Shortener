@@ -8,20 +8,20 @@ from fastapi.middleware.cors import CORSMiddleware
 
 description = """
 
-**This API enables developers to convert a lengthy URL into a short URL
+##**This API enables developers to convert a lengthy URL into a short one
 🚀**
 
   
   
 
-## **Features**
+### **Features**
 
   - It accepts custom and unique short code for URL shortening
   - Automatically generates unique short code if user given custom short
     code is set to **null** or not given
-  - User can set URL validity days after which the Shorten URL will be
+  - User can set URL validity days after which the Shortened URL will be
     invalid automatically i.e all its info will be discarded  
-    from the database. Shorten URL will never be expire if URL validity
+    from the database. Shortened URL will never be expire if URL validity
     days is not set or set to **null**
   - This API returns URL information at **/{Short Code}/info** endpoint.
 
@@ -34,7 +34,7 @@ tags_metadata = [
 
     {
         "name": "Shorten URL",
-        "description": " 'original_url' is required, 'short_code' & 'url_expiration' is Optional and 0 day < 'url_expiration' <= 90 days "
+        "description": " Convert lengthy URL into a short one "
     },
 
     {
@@ -44,7 +44,7 @@ tags_metadata = [
 
     {
         "name": "Short-URL Info",
-        "description": "This returns Shorten URL information.",
+        "description": "This returns Shortened URL information.",
         # "summary": "Get URL info."
     },
 
