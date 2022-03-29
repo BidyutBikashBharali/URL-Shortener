@@ -59,7 +59,7 @@ async def test(url_schema : UrlSchema, session: Session = Depends(get_db)):
         shortened_url = os.path.join(config("BASE_URL"), short_code)
 
         if url_schema.get("url_expiration") is not None:
-            url_expiration = datetime.datetime.utcnow() + datetime.timedelta(minutes = url_schema.get("url_expiration"))
+            url_expiration = datetime.datetime.utcnow() + datetime.timedelta(days = url_schema.get("url_expiration"))
         else:
             url_expiration = url_schema.get("url_expiration")
     
