@@ -96,10 +96,10 @@ Base.metadata.create_all(bind=engine)
 
 
 def run_on_thread():
-    # schedule.every(120).seconds.do(expire_url)
-    schedule.every().day.at("01:00").do(expire_url) # 1.00 am
-    schedule.every().day.at("10:00").do(expire_url) # 10:00 am
-    schedule.every().day.at("17:00").do(expire_url) # 5:00 pm
+    schedule.every(120).seconds.do(expire_url)
+    # schedule.every().day.at("01:00").do(expire_url) # 1.00 am
+    # schedule.every().day.at("10:00").do(expire_url) # 10:00 am
+    # schedule.every().day.at("17:00").do(expire_url) # 5:00 pm
 
     while True:
         # print("Background Worker Running")
