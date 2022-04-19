@@ -103,7 +103,7 @@ def run_on_thread():
     # schedule.every().day.at("17:00").do(expire_url) # 5:00 pm
 
     while True:
-        print("Background Worker Running")
+        print("Background Worker Running.")
         schedule.run_pending()
         time.sleep(3)
 
