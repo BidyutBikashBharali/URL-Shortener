@@ -10,7 +10,7 @@ def expire_url():
         
         for data in all_data:
             if data.url_expiration is not None and data.url_expiration <= datetime.datetime.utcnow():
-                # print(data.short_code)
+                print("short code: ", data.short_code, "url expiration: ", data.url_expiration)
                 session.delete(data)
                 session.commit()
 
