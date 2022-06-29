@@ -19,3 +19,7 @@ class UrlModel(Base):
     url_expiration = Column(DateTime, nullable=True) # datetime will be inserted after calculating created datetime with the user given "days_for_url_expiration"
     days_for_url_expiration = Column(Integer, nullable=True)
     total_visited_times = Column(Integer, default=0)
+
+    __mapper_args__ = {
+        'confirm_deleted_rows': False
+    }
