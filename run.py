@@ -53,7 +53,7 @@ tags_metadata = [
 
 app = FastAPI(
 
-    docs_url="/",
+    docs_url="/doc",
     redoc_url=None,
     title="REST API For URL Shortening",
     description=description,

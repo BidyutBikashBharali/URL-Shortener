@@ -9,7 +9,13 @@ from .crud import *
 import os, sys, shortuuid, datetime
 from decouple import config
 
+from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
+from fastapi import Request, Form
+
+
 router = APIRouter()
+templates = Jinja2Templates(directory="templates")
 
 CODE_LENGTH = os.environ.get('CODE_LENGTH')
 if CODE_LENGTH is None:
@@ -21,15 +27,95 @@ if BASE_URL is None:
 
 
 
-# @router.get("/")
-# async def read_root():
-#     return {"response": "Welcome to URL shortner!"}
+
+@router.get("/", tags=["Shorten URL"], response_class=HTMLResponse)
+async def home(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
+
+
+
+@router.post('/', tags=["Shorten URL"], response_class=HTMLResponse) 
+async def short_url(request: Request, original_url:str=Form(...), short_code:str=Form(...), url_expiration:int=Form(...), session: Session = Depends(get_db)):
+
+    """
+    'original_url' field is required, 'short_code' & 'url_expiration' fields are Optional and 0 day < 'url_expiration' field <= 90 days.
+    """
+
+    try:
+        print("########: ", url_expiration)
+        if short_code is not None:
+
+            short_code_existance = get_data_by_short_code(session=session, short_code = short_code)
+            if short_code_existance is not None:
+                return {"status" : "Custom code already in use! Please try a different one."}
+
+        else:
+            while True:
+                short_code = str(shortuuid.ShortUUID().random(length = int(config("CODE_LENGTH"))))
+
+                short_code_existance = get_data_by_short_code(session=session, short_code = short_code)
+                if short_code_existance is None:
+                    # print("Custom code generated in backend")
+                    break
+
+
+        shortened_url = os.path.join(config("BASE_URL"), short_code)
+
+
+        if url_expiration is not None:
+            url_expiration = datetime.datetime.utcnow() + datetime.timedelta(days = url_expiration)
+        else:
+            url_expiration = url_expiration
+    
+    
+        url_model = UrlModel(
+            original_url = original_url,
+            shortened_url = shortened_url,
+            short_code = short_code,
+            url_expiration = url_expiration,
+            days_for_url_expiration = url_expiration
+        )
+
+        session.add(url_model)
+        session.commit()
+        # session.refresh(url_model) # refresh required when returning the url_model as response, see https://fastapi.tiangolo.com/tutorial/sql-databases/
+
+
+        if url_expiration is None:
+            url_expiration = "Never"
+        else:
+            if url_expiration == 1:
+                url_expiration = f"After {url_expiration} day"
+            else:
+                url_expiration = f"After {url_expiration} days"
+
+
+        data_existance = session.query(UrlModel).filter(UrlModel.short_code == short_code).first()
+        if data_existance is None:
+            return {"status" : "Invalid URL!"}
+
+        return templates.TemplateResponse("index.html", {"request": request, "data":True, "original_url": original_url, "shortened_url": shortened_url, "short_code":short_code, "url_expiration": url_expiration})
+
+        
+
+    except Exception as emsg:
+        current_file_name = os.path.basename(__file__)
+        line = sys.exc_info()[-1].tb_lineno
+        errortype =  type(emsg).__name__
+        print("File Name : ", current_file_name)
+        print("Error on line : ", line)
+        print("Error Type : ", errortype)
+        print("Error msg : ", emsg)
 
 
 
 
-@router.post('/', tags=["Shorten URL"], response_class=ORJSONResponse) 
-async def test(url_schema : UrlSchema, session: Session = Depends(get_db)):
+
+
+
+
+@router.post('/api/shorten-url', tags=["Shorten URL"], response_class=ORJSONResponse) 
+async def short_url(url_schema : UrlSchema, session: Session = Depends(get_db)):
 
     """
     'original_url' field is required, 'short_code' & 'url_expiration' fields are Optional and 0 day < 'url_expiration' field <= 90 days.
