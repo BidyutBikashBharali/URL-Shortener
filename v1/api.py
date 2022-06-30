@@ -35,7 +35,7 @@ async def home(request: Request):
 
 
 @router.post('/', tags=["Shorten URL"], response_class=HTMLResponse) 
-async def short_url(request: Request, original_url:str=Form(...), short_code:str=Form(...), url_expiration:int=Form(...), session: Session = Depends(get_db)):
+async def short_url(request: Request, original_url:str=Form(...), short_code:str=Form(...), c:str=Form(...), session: Session = Depends(get_db)):
 
     """
     'original_url' field is required, 'short_code' & 'url_expiration' fields are Optional and 0 day < 'url_expiration' field <= 90 days.
@@ -43,6 +43,10 @@ async def short_url(request: Request, original_url:str=Form(...), short_code:str
 
     try:
         print("########: ", url_expiration)
+        
+        if url_expiration is not None:
+            url_expiration = int(url_expiration)
+        
         if short_code is not None:
 
             short_code_existance = get_data_by_short_code(session=session, short_code = short_code)
