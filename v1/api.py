@@ -12,6 +12,7 @@ from decouple import config
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
 from fastapi import Request, Form
+from typing import Union
 
 
 router = APIRouter()
@@ -34,8 +35,8 @@ async def home(request: Request):
 
 
 
-@router.post('/', tags=["Shorten URL"], response_class=HTMLResponse) 
-async def short_url(request: Request, original_url:str=Form(...), short_code:str=Form(...), url_expiration:int=Form(...), session: Session = Depends(get_db)):
+@router.post('/', tags=["Shorten URL"], response_class=HTMLResponse)
+async def short_url(request: Request, original_url:str=Form(...), short_code:Union[str, None]=Form(...), url_expiration:Union[int, None]=Form(...), session: Session = Depends(get_db)):
 
     """
     'original_url' field is required, 'short_code' & 'url_expiration' fields are Optional and 0 day < 'url_expiration' field <= 90 days.
