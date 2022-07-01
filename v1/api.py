@@ -48,8 +48,10 @@ async def short_url(request: Request, original_url:str=Form(...), short_code:Uni
 
             short_code_existance = get_data_by_short_code(session=session, short_code = short_code)
             print("######: ", str(short_code_existance))
-            short_code_existance = str(short_code_existance)
-            if short_code_existance is not None:
+            
+            if short_code_existance is None:
+                pass
+            else:
                 return {"status" : "Custom code already in use! Please try a different one."}
 
         else:
