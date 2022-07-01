@@ -115,7 +115,6 @@ h1 {letter-spacing: 6px}
 
 
     <script type="text/javascript">
-  
       function copy_text(cls){
 
         id = document.getElementById(cls.getAttribute("name"));
@@ -136,7 +135,6 @@ h1 {letter-spacing: 6px}
         setTimeout(fade_msg, 3000);
 
       }
-      
     </script>
   
   </center>
@@ -164,7 +162,7 @@ h1 {letter-spacing: 6px}
 
         <p class="w3-opacity w3-left w3-small">Original URL : </p>
 
-        <button class="w3-button w3-hover-white w3-right" name ="original_urll" onclick="copy_text(this)" class="vertical-links"> <i class="fa fa-copy" style="font-size:13px; color:gray"></i></button>
+        <button class="w3-button w3-hover-white w3-right" name ="original_urll" onclick="copy_textt(this)" class="vertical-links"> <i class="fa fa-copy" style="font-size:13px; color:gray"></i></button>
 
         <br><p class="w3-opacity w3-small w3-center"><input style="width:100%;" id="original_urll" type="text" value="{{original_url}}" disabled></p>
 
@@ -174,7 +172,7 @@ h1 {letter-spacing: 6px}
       <div class="w3-container">
         <p class="w3-opacity w3-left w3-small">Shorten URL : </p>
 
-        <button class="w3-button w3-hover-white w3-right" name ="shortened_urll" onclick="copy_text(this)" class="vertical-links"> <i class="fa fa-copy" style="font-size:13px; color:gray"></i></button>
+        <button class="w3-button w3-hover-white w3-right" name ="shortened_urll" onclick="copy_textt(this)" class="vertical-links"> <i class="fa fa-copy" style="font-size:13px; color:gray"></i></button>
 
         <br><p class="w3-opacity w3-small w3-center"><input style="width:100%;" id="shortened_urll" type="text" value="{{shortened_url}}" disabled></p>
       </div>
@@ -183,7 +181,7 @@ h1 {letter-spacing: 6px}
       <div class="w3-container">
         <p class="w3-opacity w3-left w3-small">Short Code : </p>
 
-        <button class="w3-button w3-hover-white w3-right" name ="short_codee" onclick="copy_text(this)" class="vertical-links"> <i class="fa fa-copy" style="font-size:13px; color:gray"></i></button>
+        <button class="w3-button w3-hover-white w3-right" name ="short_codee" onclick="copy_textt(this)" class="vertical-links"> <i class="fa fa-copy" style="font-size:13px; color:gray"></i></button>
 
         <br><p class="w3-opacity w3-small w3-center"><input style="width:100%;" id="short_codee" type="text" value="{{short_code}}" disabled></p>
       </div>
@@ -219,7 +217,7 @@ h1 {letter-spacing: 6px}
 
     <script type="text/javascript">
   
-      function copy_text(cls){
+      function copy_textt(cls){
 
         id = document.getElementById(cls.getAttribute("name"));
         id.select();
@@ -264,7 +262,7 @@ h1 {letter-spacing: 6px}
     <br><br><br><br>
 
     <label class="w3-opacity w3-left" ><b> URL expiration (1 to 90 days) : </b> </label>
-    <input class="w3-opacity w3-right" type="number" name="url_expiration" placeholder=" Default: Never" value=None  min="1" max="90">
+    <input class="w3-opacity w3-right" type="number" name="url_expiration" placeholder=" Default: Never"  min="1" max="90">
     <br><br>
 
     
@@ -290,7 +288,7 @@ h1 {letter-spacing: 6px}
     <br><br>
 
     <label class="w3-opacity" ><b> URL expiration (1 to 90 days) : </b> </label><br>
-    <input class="w3-opacity w3-small" type="number" name="url_expiration" placeholder=" Default: Never" value=None  min="1" max="90">
+    <input class="w3-opacity w3-small" type="number" name="url_expiration" placeholder=" Default: Never"  min="1" max="90">
     <br><br><br>
 
     

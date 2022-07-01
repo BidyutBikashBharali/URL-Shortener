@@ -43,10 +43,6 @@ async def short_url(request: Request, original_url:str=Form(...), short_code:Uni
     """
 
     try:
-        print("########: ", url_expiration)
-
-        # if url_expiration is not None:
-        #     url_expiration = int(url_expiration)
         
         if short_code is not None:
 
@@ -68,6 +64,7 @@ async def short_url(request: Request, original_url:str=Form(...), short_code:Uni
 
 
         if url_expiration is not None:
+            days_for_url_expiration = url_expiration
             url_expiration = datetime.datetime.utcnow() + datetime.timedelta(days = url_expiration)
         else:
             url_expiration = url_expiration
@@ -78,7 +75,7 @@ async def short_url(request: Request, original_url:str=Form(...), short_code:Uni
             shortened_url = shortened_url,
             short_code = short_code,
             url_expiration = url_expiration,
-            days_for_url_expiration = url_expiration
+            days_for_url_expiration = days_for_url_expiration
         )
 
         session.add(url_model)
