@@ -47,11 +47,11 @@ async def short_url(request: Request, original_url:str=Form(...), short_code:Uni
         if short_code is not None:
 
             short_code_existance = get_data_by_short_code(session=session, short_code = short_code)
-            print("######: ", str(short_code_existance))
             
-            if short_code_existance is None:
-                pass
-            else:
+            try:
+                if short_code_existance is not None:
+                    return {"status" : "Custom code already in use! Please try a different one."}
+            except:
                 return {"status" : "Custom code already in use! Please try a different one."}
 
         else:
@@ -136,8 +136,12 @@ async def short_url(url_schema : UrlSchema, session: Session = Depends(get_db)):
             short_code = url_schema.get("short_code")
 
             short_code_existance = get_data_by_short_code(session=session, short_code = short_code)
-            if short_code_existance is not None:
-                return {"status" : "Custom code already in use! Please try a different one."}
+            
+            try:
+                if short_code_existance is not None:
+                    return {"status" : "Custom Short code already in use! Please try a different one."}
+            except:
+                return {"status" : "Custom Short code already in use! Please try a different one."}
 
         else:
             while True:
