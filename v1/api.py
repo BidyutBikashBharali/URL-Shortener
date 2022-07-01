@@ -101,7 +101,7 @@ async def short_url(request: Request, original_url:str=Form(...), short_code:Uni
         if data_existance is None:
             return {"status" : "Invalid URL!"}
 
-        return templates.TemplateResponse("index.html", {"request": request, "data":True, "original_url": original_url, "shortened_url": shortened_url, "short_code":short_code, "url_expiration": url_expiration})
+        return templates.TemplateResponse("index.html", {"request": request, "data":True, "original_url": original_url, "shortened_url": shortened_url, "short_code":short_code, "url_expiration": url_expiration, "created_at" : data_existance.created_at, "total_visited_times" : data_existance.total_visited_times})
 
         
 
