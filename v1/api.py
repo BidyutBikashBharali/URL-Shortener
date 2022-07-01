@@ -45,6 +45,7 @@ async def short_url(request: Request, original_url:str=Form(...), short_code:Uni
     try:
         
         if short_code is not None:
+            print("######: ", short_code)
 
             short_code_existance = get_data_by_short_code(session=session, short_code = short_code)
             if short_code_existance is not None:
@@ -62,6 +63,7 @@ async def short_url(request: Request, original_url:str=Form(...), short_code:Uni
 
         shortened_url = os.path.join(config("BASE_URL"), short_code)
 
+        days_for_url_expiration = None
 
         if url_expiration is not None:
             days_for_url_expiration = url_expiration
