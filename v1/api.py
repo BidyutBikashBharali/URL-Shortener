@@ -1,6 +1,5 @@
 from fastapi import Depends, APIRouter
 from sqlalchemy.orm import Session
-from fastapi.responses import ORJSONResponse
 from starlette.responses import RedirectResponse
 from .db import get_db
 from .schema import UrlSchema 
@@ -10,7 +9,7 @@ import os, sys, shortuuid, datetime
 from decouple import config
 
 from fastapi.templating import Jinja2Templates
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, ORJSONResponse
 from fastapi import Request, Form
 from typing import Union
 
@@ -35,7 +34,7 @@ async def home(request: Request):
 
 
 
-@router.post('/', tags=["Shorten URL"], response_class=HTMLResponse)
+@router.post('/', tags=["Shorten URL"])
 async def short_url(request: Request, original_url:str=Form(...), short_code:Union[str, None]=Form(default=None), url_expiration:Union[int, None]=Form(default=None), session: Session = Depends(get_db)):
 
     """
@@ -47,13 +46,8 @@ async def short_url(request: Request, original_url:str=Form(...), short_code:Uni
         if short_code is not None:
 
             short_code_existance = get_data_by_short_code(session=session, short_code = short_code)
-            print("###########", short_code_existance)
-            print(str(type(short_code_existance)))
-            print(type("<class 'v1.model.UrlModel'>"))
-
             if short_code_existance is not None:
-                return "Custom Short Code already in use! Please try a different one."
-                # return {"status" : "Custom Short Code already in use! Please try a different one."}
+                return ORJSONResponse({"status" : "Custom Short Code already in use! Please try a different one."})
 
         else:
             while True:
@@ -100,9 +94,9 @@ async def short_url(request: Request, original_url:str=Form(...), short_code:Uni
 
         data_existance = session.query(UrlModel).filter(UrlModel.short_code == short_code).first()
         if data_existance is None:
-            return {"status" : "Invalid URL!"}
+            return ORJSONResponse({"status" : "Invalid URL!"})
 
-        return templates.TemplateResponse("index.html", {"request": request, "data":True, "original_url": original_url, "shortened_url": shortened_url, "short_code":short_code, "url_expiration": url_expiration, "created_at" : data_existance.created_at, "total_visited_times" : data_existance.total_visited_times})
+        return HTMLResponse(templates.TemplateResponse("index.html", {"request": request, "data":True, "original_url": original_url, "shortened_url": shortened_url, "short_code":short_code, "url_expiration": url_expiration, "created_at" : data_existance.created_at, "total_visited_times" : data_existance.total_visited_times}))
 
         
 
