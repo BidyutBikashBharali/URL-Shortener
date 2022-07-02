@@ -48,10 +48,11 @@ async def short_url(request: Request, original_url:str=Form(...), short_code:Uni
 
             short_code_existance = get_data_by_short_code(session=session, short_code = short_code)
             print("###########", short_code_existance)
-            print(type(short_code_existance))
+            print(str(type(short_code_existance)))
+            print(type("<class 'v1.model.UrlModel'>"))
 
             if str(type(short_code_existance)) == "<class 'v1.model.UrlModel'>":
-                return {"status" : "Custom code already in use! Please try a different one."}
+                return {"status" : "Custom Short Code already in use! Please try a different one."}
 
         else:
             while True:
