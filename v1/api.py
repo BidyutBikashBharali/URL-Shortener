@@ -131,13 +131,9 @@ async def short_url(url_schema : UrlSchema, session: Session = Depends(get_db)):
             short_code = url_schema.get("short_code")
 
             short_code_existance = get_data_by_short_code(session=session, short_code = short_code)
-            
-            try:
-                if short_code_existance is not None:
-                    return {"status" : "Custom Short code already in use! Please try a different one."}
-            except:
+            if short_code_existance is not None:
                 return {"status" : "Custom Short code already in use! Please try a different one."}
-
+                
         else:
             while True:
                 short_code = str(shortuuid.ShortUUID().random(length = int(config("CODE_LENGTH"))))
