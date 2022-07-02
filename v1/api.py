@@ -52,7 +52,8 @@ async def short_url(request: Request, original_url:str=Form(...), short_code:Uni
             print(type("<class 'v1.model.UrlModel'>"))
 
             if str(type(short_code_existance)) == "<class 'v1.model.UrlModel'>":
-                return {"status" : "Custom Short Code already in use! Please try a different one."}
+                print("Duplicate")
+                # return {"status" : "Custom Short Code already in use! Please try a different one."}
 
         else:
             while True:
