@@ -34,7 +34,7 @@ async def home(request: Request):
 
 
 
-@router.post('/', tags=["Shorten URL"])
+@router.post('/', tags=["Shorten URL"], response_class=HTMLResponse)
 async def short_url(request: Request, original_url:str=Form(...), short_code:Union[str, None]=Form(default=None), url_expiration:Union[int, None]=Form(default=None), session: Session = Depends(get_db)):
 
     """
@@ -96,7 +96,7 @@ async def short_url(request: Request, original_url:str=Form(...), short_code:Uni
         if data_existance is None:
             return ORJSONResponse({"status" : "Invalid URL!"})
 
-        return HTMLResponse(templates.TemplateResponse("index.html", {"request": request, "data":True, "original_url": original_url, "shortened_url": shortened_url, "short_code":short_code, "url_expiration": url_expiration, "created_at" : data_existance.created_at, "total_visited_times" : data_existance.total_visited_times}))
+        return templates.TemplateResponse("index.html", {"request": request, "data":True, "original_url": original_url, "shortened_url": shortened_url, "short_code":short_code, "url_expiration": url_expiration, "created_at" : data_existance.created_at, "total_visited_times" : data_existance.total_visited_times})
 
         
 
