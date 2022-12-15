@@ -106,7 +106,7 @@ def run_on_thread():
     while True:
         print("Background Worker Running.")
         schedule.run_pending()
-        time.sleep(3)
+        time.sleep(5)
 
 t = Thread(target=run_on_thread, daemon = True) # when daemon = True then this background thread(the "run_on_thread" function) will be stopped when the main thread(when the fastapi app is exited) is exited. otherwise the "run_on_thread" function will be running even after the fastapi app is stopped.
 t.start()
@@ -114,4 +114,4 @@ t.start()
 
 #used for development environment
 # if __name__ == "__main__":
-#     uvicorn.run("run:app", host="0.0.0.0", port=8000, reload=True)
+#     uvicorn.run("run:app", host="127.0.0.1", port=8000, reload=True)
